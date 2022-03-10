@@ -16,7 +16,7 @@
             <property name="hibernate.format_sql" value="true"/> <!-- 쿼리를 줄에 맞춰 포멧 -->
             <property name="hibernate.use_sql_comments" value="true"/> <!-- 쿼리 실행에 대한 정보 표시 -->
             <property name="hibernate.jdbc.batch_size" value="10"/> <!-- 하이버네이트에서는 value 사이즈만큼 모았다가 한번에 쿼리를 실행 -->
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
     
