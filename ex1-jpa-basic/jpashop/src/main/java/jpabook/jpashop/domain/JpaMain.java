@@ -24,34 +24,6 @@ public class JpaMain {
 
 		try {
 
-			Member member = new Member();
-			member.setCity("서울");
-			member.setName("뻥뻥이");
-			member.setStreet("상계로");
-			member.setZipcode("1234");
-
-			em.persist(member);
-
-			Item item = new Item();
-			item.setName("맥북");
-			item.setPrice(3333333);
-			item.setStockQuantity(1);
-
-			em.persist(item);
-
-			Order order = new Order();
-			order.setMember(member);
-			order.setStatus(OrderStatus.ORDER);
-
-			em.persist(order);
-
-			OrderItem orderItem = new OrderItem();
-			orderItem.setItem(item);
-			orderItem.setOrder(order);
-			orderItem.setCount(2);
-			orderItem.setOrderPrice(item.getPrice() * orderItem.getCount());
-
-			em.persist(orderItem);
 
 			tx.commit(); // 로직 정상 수행
 		} catch(Exception e) {

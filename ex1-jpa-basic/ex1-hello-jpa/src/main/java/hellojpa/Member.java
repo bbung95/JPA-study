@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -15,6 +17,14 @@ public class Member {
 	@ManyToOne
 	@JoinColumn(name = "TEAM_ID")
  	private Team team;
+
+	@OneToOne
+	@JoinColumn(name = "LOCKER_ID")
+	private Locker locker;
+
+	@ManyToMany
+	@JoinTable(name = "MEMBER_PRODUCT")
+	private List<Product> products = new ArrayList<>();
 
 	public Member() { // JPA는 기본적으로 리플랙션을 사용하며 동적으로 쿼리를 생성하기에 기본 생성자가 꼭 필요하다.
 	}

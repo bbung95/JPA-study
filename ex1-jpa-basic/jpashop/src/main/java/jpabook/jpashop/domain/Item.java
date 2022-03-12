@@ -2,10 +2,9 @@ package jpabook.jpashop.domain;
 
 import sun.lwawt.macosx.CSystemTray;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -17,6 +16,17 @@ public class Item {
     private String name;
     private int price;
     private int stockQuantity;
+
+    @OneToMany(mappedBy = "item")
+    private List<CategoryItem> categoryItems = new ArrayList<>();
+
+    public List<CategoryItem> getCategoryItems() {
+        return categoryItems;
+    }
+
+    public void setCategoryItems(List<CategoryItem> categoryItems) {
+        this.categoryItems = categoryItems;
+    }
 
     public Item() {
 
