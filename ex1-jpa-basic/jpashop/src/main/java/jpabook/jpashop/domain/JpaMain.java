@@ -1,10 +1,14 @@
-package hellojpa;
+package jpabook.jpashop.domain;
+
+import org.hibernate.type.LocalDateTimeType;
+import org.hibernate.type.LocalDateType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class JpaMain {
 	
@@ -20,24 +24,35 @@ public class JpaMain {
 
 		try {
 
-			Team team = new Team();
-			team.setName("TeamA");
-
-			em.persist(team);
-
 			Member member = new Member();
-			member.setUsername("memberA");
-			member.changeTeam(team);
+			member.setCity("서울");
+			member.setName("뻥뻥이");
+			member.setStreet("상계로");
+			member.setZipcode("1234");
 
 			em.persist(member);
 
-			Member findMember = em.find(Member.class , member.getId());
-			List<Member> memberList = findMember.getTeam().getMembers();
+			Item item = new Item();
+			item.setName("맥북");
+			item.setPrice(3333333);
+			item.setStockQuantity(1);
 
-			for (Member m : memberList) {
-				System.out.println("m.getId() = " + m.getId());
-			}
-			
+			em.persist(item);
+
+			Order order = new Order();
+			order.setMember(member);
+			order.setStatus(OrderStatus.ORDER);
+
+			em.persist(order);
+
+			OrderItem orderItem = new OrderItem();
+			orderItem.setItem(item);
+			orderItem.setOrder(order);
+			orderItem.setCount(2);
+			orderItem.setOrderPrice(item.getPrice() * orderItem.getCount());
+
+			em.persist(orderItem);
+
 			tx.commit(); // 로직 정상 수행
 		} catch(Exception e) {
 			tx.rollback(); // 로직 오류 발생시 롤백
