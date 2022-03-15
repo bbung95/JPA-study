@@ -1,5 +1,6 @@
 package hellojpa;
 
+import hellojpa.extend.Child;
 import hellojpa.extend.Movie;
 
 import javax.persistence.EntityManager;
@@ -22,25 +23,20 @@ public class JpaMain {
 
 		try {
 
-			Team team = new Team();
-			team.setName("TEAM");
-			em.persist(team);
+			Child child1 = new Child();
+			Child child2 = new Child();
 
-			Member member = new Member();
-			member.setUsername("JPA");
-			member.setTeam(team);
+			Parent parent = new Parent();
+			parent.addChild(child1);
+			parent.addChild(child2);
 
-			em.persist(member);
+			em.persist(parent); // cascade를 통한 영속성 관리
 
 			em.flush();
 			em.clear();
 
-			Member findMember = em.find(Member.class , member.getId()); // Entity 조회
-	//		Member findMember = em.getReference(Member.class , member.getId()); // 하이버네이트 프록시 클래스
-
-			System.out.println("//////////////////");
-			System.out.println("findMember.getTeam() = " + findMember.getTeam().getClass()); // 프록시 객체 반환
-			System.out.println("//////////////////");
+			Parent parent1 = em.find(Parent.class , parent.getId());
+			em.remove(parent1); // child 또한 삭제 / 고아객체를 통한 자식 관리
 
 			tx.commit(); // 로직 정상 수행
 		} catch(Exception e) {
