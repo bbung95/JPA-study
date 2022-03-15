@@ -1,18 +1,17 @@
-package hellojpa;
+package hellojpa.extend;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-//@Entity
-public class Product {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+public class Item {
 
     @Id @GeneratedValue
-    @Column(name = "PRODUCT_ID")
     private Long id;
 
     private String name;
+    private int price;
 
     public Long getId() {
         return id;
@@ -28,5 +27,13 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

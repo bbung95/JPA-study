@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-@Entity
+//@Entity
 public class Team {
 
     @Id @GeneratedValue
