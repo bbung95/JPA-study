@@ -22,20 +22,25 @@ public class JpaMain {
 
 		try {
 
-			Movie movie = new Movie();
-			movie.setDirector("AAAAAA");
-			movie.setActor("BBBBB");
-			movie.setName("바람과 함께 사라지다.");
-			movie.setPrice(11111111);
+			Team team = new Team();
+			team.setName("TEAM");
+			em.persist(team);
 
-			em.persist(movie);
+			Member member = new Member();
+			member.setUsername("JPA");
+			member.setTeam(team);
+
+			em.persist(member);
 
 			em.flush();
 			em.clear();
 
-			Movie findMovie = em.find(Movie.class , movie.getId());
-			System.out.println("findMovie = " + findMovie);
+			Member findMember = em.find(Member.class , member.getId()); // Entity 조회
+	//		Member findMember = em.getReference(Member.class , member.getId()); // 하이버네이트 프록시 클래스
 
+			System.out.println("//////////////////");
+			System.out.println("findMember.getTeam() = " + findMember.getTeam().getClass()); // 프록시 객체 반환
+			System.out.println("//////////////////");
 
 			tx.commit(); // 로직 정상 수행
 		} catch(Exception e) {

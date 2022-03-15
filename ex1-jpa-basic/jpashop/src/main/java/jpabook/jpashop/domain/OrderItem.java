@@ -2,11 +2,12 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 
+import jpabook.jpashop.domain.extend.BaseEntity;
 import net.bytebuddy.build.ToStringPlugin.Exclude;
 
 @Entity
 @Table(name = "ORDER_ITEM")
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
 	@Id
 	@GeneratedValue

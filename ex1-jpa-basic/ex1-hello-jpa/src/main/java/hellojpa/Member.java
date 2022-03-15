@@ -1,11 +1,13 @@
 package hellojpa;
 
+import hellojpa.extend.BaseEntity;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
-public class Member {
+@Entity
+public class Member extends BaseEntity {
 	
 	@Id @GeneratedValue
 	@Column(name = "MEMBER_ID")
@@ -14,13 +16,9 @@ public class Member {
 	@Column(name = "name")
 	private String username;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) // 프록시 객체 반환 지연로딩
 	@JoinColumn(name = "TEAM_ID")
  	private Team team;
-
-	@OneToOne
-	@JoinColumn(name = "LOCKER_ID")
-	private Locker locker;
 
 	@ManyToMany
 	@JoinTable(name = "MEMBER_PRODUCT")
@@ -59,4 +57,15 @@ public class Member {
 		this.username = username;
 	}
 
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 }

@@ -1,12 +1,14 @@
 package hellojpa;
 
+import hellojpa.extend.BaseEntity;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
 
-//@Entity
-public class Team {
+@Entity
+public class Team extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "TEAM_ID")

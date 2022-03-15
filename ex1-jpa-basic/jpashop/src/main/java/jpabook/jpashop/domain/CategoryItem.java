@@ -3,7 +3,7 @@ package jpabook.jpashop.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CATEGORT_ITEM")
+@Table(name = "CATEGORY_ITEM")
 public class CategoryItem {
 
     @Id @GeneratedValue
