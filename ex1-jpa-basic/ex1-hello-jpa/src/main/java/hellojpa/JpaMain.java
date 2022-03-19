@@ -23,6 +23,15 @@ public class JpaMain {
 
 		try {
 
+			List<Member> result = em.createQuery(
+					"select m from Member m where m.username like '%kim'",
+					Member.class
+			).getResultList(); // JPQL 기본
+
+			for (Member member: result) {
+				System.out.println("member = " + member);
+			}
+
 			tx.commit(); // 로직 정상 수행
 		} catch(Exception e) {
 			tx.rollback(); // 로직 오류 발생시 롤백
