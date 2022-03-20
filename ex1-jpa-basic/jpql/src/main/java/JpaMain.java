@@ -32,6 +32,14 @@ public class JpaMain {
 			// new를 통한 DTO 조회 , 생성자 생성 필요
 			//////////////////////
 
+			/////////////////////
+			// List<MemberDto> resultList = em.createQuery("select new jpql.domain.MemberDto(m.username , m.age) from Member m")
+			//		.setFirstResult(1) // 시작 번호
+			//		.setMaxResults(10) // 가져오는 ROW 수
+			//		.getResultList();
+			// JPA 방언을 통한 페이징 처리 Oracle : rownum , MySQL : LIMIT
+			/////////////////////
+
 
 			tx.commit(); // 로직 정상 수행
 		} catch(Exception e) {
