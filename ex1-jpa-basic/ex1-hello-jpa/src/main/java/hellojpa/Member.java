@@ -25,6 +25,17 @@ public class Member {
 	@Embedded
 	private Address adress;
 
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name="city" ,
+					column = @Column(name = "WORK_CITY")),
+			@AttributeOverride(name="street" ,
+					column = @Column(name = "WORK_STREET")),
+			@AttributeOverride(name="zipcode" ,
+					column = @Column(name = "WORK_ZIPCODE"))
+	})
+	private Address workAddress;
+
 	@ElementCollection
 	@CollectionTable(name = "FAVORITE_FOOD" ,  joinColumns =
 		@JoinColumn( name = "MEMBER_ID"))
