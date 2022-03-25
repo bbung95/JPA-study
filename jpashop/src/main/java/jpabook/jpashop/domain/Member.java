@@ -1,15 +1,14 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +18,6 @@ public class Member {
 
     @Embedded
     private Address address;
-
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
 
     public Member() {
     }

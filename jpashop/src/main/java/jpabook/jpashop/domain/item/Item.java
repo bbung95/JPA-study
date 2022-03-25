@@ -1,7 +1,7 @@
-package jpabook.jpashop.entity.item;
+package jpabook.jpashop.domain.item;
 
-import jpabook.jpashop.entity.ItemCategory;
-import jpabook.jpashop.entity.OrderItem;
+import jpabook.jpashop.domain.ItemCategory;
+import jpabook.jpashop.domain.OrderItem;
 import lombok.Getter;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain;
 
 import jpabook.jpashop.enums.DeliveryStatus;
 import lombok.Getter;

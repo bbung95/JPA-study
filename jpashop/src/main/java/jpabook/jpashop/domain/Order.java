@@ -1,4 +1,4 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain;
 
 import jpabook.jpashop.enums.OrderStatus;
 import lombok.Getter;
@@ -46,11 +46,6 @@ public class Order {
     }
 
     /////////// 연관관계 메서드 (편의 메서드) /////////////
-    public void setMember(Member member){
-        this.member = member;
-        member.getOrders().add(this);
-    }
-
     public void addOrderItem(OrderItem orderItem){
         orderItems.add(orderItem);
         orderItem.setOrder(this);
