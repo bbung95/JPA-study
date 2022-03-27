@@ -2,11 +2,13 @@ package jpabook.jpashop.domain;
 
 import jpabook.jpashop.enums.DeliveryStatus;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 public class Delivery {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +19,7 @@ public class Delivery {
     private Address address;
 
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus deliveryStatus;
+    private DeliveryStatus status;
 
     @OneToOne(mappedBy = "delivery" , fetch = FetchType.LAZY)
     private Order order;
@@ -25,14 +27,4 @@ public class Delivery {
     public Delivery() {
     }
 
-    public Delivery(Long id, Address address, DeliveryStatus deliveryStatus, Order order) {
-        this.id = id;
-        this.address = address;
-        this.deliveryStatus = deliveryStatus;
-        this.order = order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }
