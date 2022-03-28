@@ -3,10 +3,7 @@ package jpabook.jpashop.domain;
 import jpabook.jpashop.enums.DeliveryStatus;
 import jpabook.jpashop.enums.OrderStatus;
 import jpabook.jpashop.repository.MemberRepository;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -91,4 +88,5 @@ public class Order {
 
         return totalPrice;
     }
+
 }

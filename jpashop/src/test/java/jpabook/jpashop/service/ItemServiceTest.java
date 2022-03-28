@@ -49,22 +49,6 @@ class ItemServiceTest {
         assertEquals(book.getStockQuantity() , itemService.findById(book.getId()).getStockQuantity());
     }
 
-    @Test
-    public void stockQuantityRemoveTest() throws Exception {
-        //given
-        Book book = getBook();
-
-        //when
-        itemService.saveItem(book);
-        Assertions.assertThrows(NotEnoughStockException.class , () -> {
-            book.removeStock(110);
-            return;
-        }, "주문수량이 남은 재고수량보다 많습니다.");
-
-        //then
-        fail("예외가 발생해야 합니다.");
-    }
-
     public Book getBook(){
         Category category = new Category();
         category.setName("TestCat");

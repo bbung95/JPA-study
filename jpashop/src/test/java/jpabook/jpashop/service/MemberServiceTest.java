@@ -46,10 +46,8 @@ class MemberServiceTest{
         memberService.join(member1);
         Assertions.assertThrows(IllegalStateException.class , () -> {
             memberService.join(member2);
-            return;
-        }, "이미 존재하는 회원입니다.(test)");
+        }, "이미 존재하는 회원입니다.");
 
         //then
-        fail("예외가 발생해야 합니다.");
     }
 }

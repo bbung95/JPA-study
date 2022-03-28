@@ -66,6 +66,6 @@ public class Item {
             throw new NotEnoughStockException("need more stock");
         }
 
-        this.stockQuantity = quantity;
+        this.stockQuantity = restStock;
     }
 }
