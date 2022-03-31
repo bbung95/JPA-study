@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3307/jpashop?autoReconnect=true
+    url: jdbc:mariadb://localhost:3307/datajpa?autoReconnect=true
     username: jpa
     password: jpa1234
     driver-class-name: org.mariadb.jdbc.Driver
@@ -10,7 +10,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-#        show_sql: true # sysout을 통한 디버그
+        #show_sql: true # sysout을 통한 디버그
         format_sql: true
 
 logging:
