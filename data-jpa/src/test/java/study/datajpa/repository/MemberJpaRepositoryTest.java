@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
+import study.datajpa.entity.Team;
 
 import java.util.List;
 
@@ -16,6 +17,12 @@ class MemberJpaRepositoryTest {
 
     @Autowired
     private MemberJpaRepository memberJpaRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private TeamJpaRepository teamJpaRepository;
     
     @Test
     public void testMember() throws Exception {
@@ -61,6 +68,26 @@ class MemberJpaRepositoryTest {
         long deleteCount = memberJpaRepository.count();
         assertThat(deleteCount).isEqualTo(0);
 
+    }
+    
+    @Test
+    public void namingQueryTest() throws Exception {
+        //given
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamJpaRepository.save(teamA);
+        teamJpaRepository.save(teamB);
+
+        Member member1 = new Member("member1", 1, teamA);
+        Member member2 = new Member("member2", 1, teamB);
+        memberJpaRepository.save(member1);
+        memberJpaRepository.save(member2);
+
+        //when
+        memberRepository.findByMemberIdAndTeamId(member1.getId(), member1.getTeam().getId());
+        
+        //then
+    
     }
 
 }
