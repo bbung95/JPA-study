@@ -84,8 +84,8 @@ class MemberJpaRepositoryTest {
         memberJpaRepository.save(member2);
 
         //when
-        memberRepository.findByMemberIdAndTeamId(member1.getId(), member1.getTeam().getId());
-        
+        memberRepository.findByIdAndAndTeamId(member1.getId(), member1.getTeam().getId());
+
         //then
     
     }

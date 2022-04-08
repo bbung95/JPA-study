@@ -5,5 +5,5 @@ import study.datajpa.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    public Member findByMemberIdAndTeamId(Long memberId, Long teamId);
+    public Member findByIdAndAndTeamId(Long memberId, Long teamId);
 }
