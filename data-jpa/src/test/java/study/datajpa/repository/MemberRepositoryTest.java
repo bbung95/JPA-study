@@ -3,9 +3,12 @@ package study.datajpa.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
+import study.datajpa.entity.Team;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -16,6 +19,12 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
+    private EntityManager em;
     
     @Test
     public void testMember() throws Exception {
@@ -60,5 +69,55 @@ class MemberRepositoryTest {
 
         long deleteCount = memberRepository.count();
         assertThat(deleteCount).isEqualTo(0);
+    }
+
+    @Test
+    public void bulkUpdateTest() throws Exception {
+        //given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+        memberRepository.save(new Member("member3", 20));
+        memberRepository.save(new Member("member4", 21));
+        memberRepository.save(new Member("member5", 40));
+
+        //when
+        int resultCount = memberRepository.bulkAgePlus(20);
+        em.flush();
+        em.clear(); // 벌크연산시 영속성 컨텍스트를 건들지 않기 때문에 초기화가 필요하다. => JpaData @Modifying(clearAutomatically = true)
+
+        //then
+        assertThat(resultCount).isEqualTo(3);
+
+    }
+    
+    @Test
+    @Rollback(value = false)
+    public void findMemberLazy() throws Exception {
+        //given
+
+        Team teamA = new Team("TeamA");
+        Team teamB = new Team("TeamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 10, teamB);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        //when
+        List<Member> members = memberRepository.findAll();
+        //List<Member> members = memberRepository.findMemberFetchJoin();
+        
+        for(Member member: members){
+            System.out.println("member = " + member.getUsername());
+            System.out.println("member.team.class = " + member.getTeam().getClass());
+            System.out.println("member.team = " + member.getTeam().getName());
+        }
+        //then
+    
     }
 }
