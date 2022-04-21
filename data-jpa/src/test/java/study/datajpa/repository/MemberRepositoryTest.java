@@ -120,4 +120,35 @@ class MemberRepositoryTest {
         //then
     
     }
+    
+    @Test
+    public void queryHintTest() throws Exception {
+        //given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+        
+        //when
+//        Member findMember = memberRepository.findById(member1.getId()).get();
+        Member findMember = memberRepository.findReadOnlyByUsername(member1.getUsername());
+        findMember.setUsername("member2");
+        em.flush();
+
+        //then
+    
+    }
+
+    @Test
+    public void lockTest() throws Exception {
+        //given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+
+        //when
+        Member findMember = memberRepository.findLockByUsername(member1.getUsername());
+
+        //then
+
+    }
 }

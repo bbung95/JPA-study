@@ -1,13 +1,12 @@
 package study.datajpa.repository;
 
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import study.datajpa.entity.Member;
 
+import javax.persistence.LockModeType;
+import javax.persistence.QueryHint;
 import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
@@ -25,11 +24,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = {"team"})
     List<Member> findAll();
 
-    @EntityGraph(attributePaths = {"team"})
-    List<Member> findMemberEntityGraph();
+//    @EntityGraph(attributePaths = {"team"})
+//    List<Member> findMemberEntityGraph();
 
     @EntityGraph(attributePaths = {"team"})
 //    @EntityGraph("Member.all")
     List<Member> findEntityGraphByUsername(@Param("username") String username);
     // 복잡한 쿼리는 JPQL을 사용해야하지만 간단한건 @EntityGraph 사용
+
+    @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+    Member findReadOnlyByUsername(String username);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Member findLockByUsername(String username);
 }
